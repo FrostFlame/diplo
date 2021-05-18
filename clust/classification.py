@@ -11,6 +11,10 @@ from sklearn.neighbors import KNeighborsRegressor, kneighbors_graph, KNeighborsC
 from matplotlib import pyplot as plt
 from sklearn.neural_network import MLPClassifier
 
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.svm import SVC
+
 from clust.bayes import bayes
 from clust.pdp_ice import pdp
 
@@ -26,22 +30,23 @@ def run():
     X = np.array(points)
     y = np.array(courses)
 
-    neigh = KNeighborsClassifier(n_neighbors=10)
-    # neigh = MLPClassifier(solver='lbfgs', alpha=1e-5,
+    # model = KNeighborsClassifier(n_neighbors=10)
+    # model = MLPClassifier(solver='lbfgs', alpha=1e-5,
     #                       hidden_layer_sizes=(15,), random_state=1)
     kernel = 1.0 * RBF(1.0)
-    # neigh = GaussianProcessClassifier(kernel=kernel,
+    # model = GaussianProcessClassifier(kernel=kernel,
     #      random_state=0)
-    neigh.fit(X, y)
+    model = make_pipeline(StandardScaler(), SVC(gamma='auto'))
+    model.fit(X, y)
 
-    print(neigh.predict([[200, 86, 1]]))
+    print(model.predict([[200, 86, 1]]))
 
-    kneighbors_graph(X, 19, 'connectivity')
+    # kneighbors_graph(X, 19, 'connectivity')
 
     features = [(0, 1)]
-    pdp(neigh, X, features)
+    pdp(model, X, features)
 
-    bayes(neigh, X)
+    # bayes(neigh, X)
 
 
 if __name__ == '__main__':
