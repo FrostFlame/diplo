@@ -16,6 +16,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 
 from clust.bayes import bayes
+from clust.dtrees import dtree
 from clust.pdp_ice import pdp
 
 
@@ -44,10 +45,11 @@ def run():
     # kneighbors_graph(X, 19, 'connectivity')
 
     features = [(0, 1)]
-    pdp(model, X, features)
+    # pdp(model, X, features)
 
     # bayes(neigh, X)
-
+    # dtree(model, X)
+    print(Counter(model.predict(X)))
 
 if __name__ == '__main__':
     run()
