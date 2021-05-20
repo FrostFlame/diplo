@@ -30,26 +30,28 @@ def run():
             courses.append(int(course))
     X = np.array(points)
     y = np.array(courses)
+    print(Counter(y))
 
     # model = KNeighborsClassifier(n_neighbors=10)
-    # model = MLPClassifier(solver='lbfgs', alpha=1e-5,
-    #                       hidden_layer_sizes=(15,), random_state=1)
-    kernel = 1.0 * RBF(1.0)
+    model = MLPClassifier(alpha=1, random_state=0, max_iter=300)
+    # kernel = 1.0 * RBF(1.0)
     # model = GaussianProcessClassifier(kernel=kernel,
     #      random_state=0)
-    model = make_pipeline(StandardScaler(), SVC(gamma='auto'))
+    # model = make_pipeline(StandardScaler(), SVC(gamma='auto'))
     model.fit(X, y)
 
-    print(model.predict([[200, 86, 1]]))
+    # print(model.predict([[200, 86, 1]]))
 
     # kneighbors_graph(X, 19, 'connectivity')
 
     features = [(0, 1)]
-    # pdp(model, X, features)
+    pdp(model, X, features)
 
     # bayes(neigh, X)
-    # dtree(model, X)
+    dtree(model, X)
     print(Counter(model.predict(X)))
+    print(model.score(X, y))
+
 
 if __name__ == '__main__':
     run()

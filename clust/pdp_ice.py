@@ -3,6 +3,7 @@ from matplotlib import pyplot as plt
 
 
 def pdp(model, X, features):
+    print('Начинает работать алгоритм pdp/ice')
     # plt.figure(figsize=(10, 9))
     # fig = plt.gcf()
     # plot_partial_dependence(model, X, features, target=4)

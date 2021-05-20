@@ -3,7 +3,7 @@ from random import randint
 
 def run():
     with open('data.txt', 'w+') as f:
-        for i in range(160):
+        for i in range(10000):
             ege = randint(180, 300)
             eng = randint(0, 100)
             lang = 'java' if randint(0, 1) == 0 else '#C'
